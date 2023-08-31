@@ -16,6 +16,11 @@ func stockMarket(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(stock)
 }
 
+func getStockData(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	json.NewEncoder(w).Encode(id)
+}
+
 // HandleFunc
 func handleRequestWithHandleFunc()  {
 	http.HandleFunc("/", greetings)
@@ -28,6 +33,7 @@ func handleRequestWithServeMux()  {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", greetings)
 	mux.HandleFunc("/stocks", stockMarket)
+	mux.HandleFunc("/stocks/", getStockData)
 
 	server := http.Server{
 		Addr: ":8000",
